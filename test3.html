@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+     ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 15px;
+    overflow: hidden;
+    background-color: #FF6600;
+    border-radius: 5px;
+  }
+
+  li {
+    float: left;
+  }
+
+  li a {
+    display: block;
+    color: #44425A;
+    text-align: center;
+    padding: 16px 20px; /* Increased padding for larger buttons */
+    text-decoration: none;
+    font-size: 18px; /* Increased font size */
+    font-weight: bold; /* Bold text */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+  }
+
+  li a:hover:not(.active) {
+    background-color: #111;
+    color: #fff; /* Text color on hover */
+    border-radius: 5px;
+  }
+
+  .active {
+    background-color: #04AA6D;
+    color: #fff; /* Text color on the active button */
+    border-radius: 5px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  #myInput {
+    background-image: url('/css/searchicon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+    border-radius: 5px;
+  }
+
+  #myTable {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+    font-size: 18px;
+  }
+
+  #myTable th, #myTable td {
+    text-align: left;
+    padding: 12px;
+  }
+
+  #myTable tr {
+    border-bottom: 1px solid #ddd;
+  }
+
+  #myTable tr.header, #myTable tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  .plus-minus {
+    display: flex;
+    align-items: center;
+    width: 80px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .minus, .plus {
+    width: 30px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #f2f2f2;
+  }
+
+  .value {
+    flex: 1;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .minus:hover, .plus:hover {
+    background-color: #ddd;
+  }
+</style>
+</head>
+<body>
+
+<ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li style="float:right"><a class="active" href="#about">About</a></li>
+</ul>
+
+<h2>My Customers</h2>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+<table id="myTable">
+  <tr class="header">
+    <th style="width:30%;">Name</th>
+    <th style="width:30%;">Course</th>
+    <th style="width:20%;">Points</th>
+  </tr>
+</table>
+
+<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+
+<script>
+  // Initialize Firebase (Replace with your Firebase configuration)
+  const firebaseConfig = {
+    apiKey: "AIzaSyAQFuwvC5Qb4eC7rLj0lkHwuPyb_ovId3A",
+  authDomain: "vastacademyfinal.firebaseapp.com",
+  projectId: "vastacademyfinal",
+  storageBucket: "vastacademyfinal.appspot.com",
+  messagingSenderId: "778284690574",
+  appId: "1:778284690574:web:11b082c4daf2202b4feddf",
+  measurementId: "G-F2HZKQDL51"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // Function to display user data in the table
+  function displayUserData() {
+    const table = document.getElementById('myTable');
+    // Clear existing table rows
+    table.innerHTML = `
+      <tr class="header">
+        <th style="width:30%;">Name</th>
+        <th style="width:30%;">Course</th>
+        <th style="width:20%;">Points</th>
+      </tr>
+    `;
+
+    // Fetch user data from the 'users' collection in the database and populate the table
+    db.collection("users").get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const userData = doc.data();
+        const row = table.insertRow(-1);
+        const nameCell = row.insertCell(0);
+        const courseCell = row.insertCell(1);
+        const pointsCell = row.insertCell(2);
+
+        nameCell.textContent = userData.name;
+        courseCell.textContent = userData.course;
+        
+        // Add plus and minus buttons with initial value for 'points'
+        pointsCell.innerHTML = `
+          <div class="plus-minus">
+            <div class="minus">-</div>
+            <div class="value">0</div>
+            <div class="plus">+</div>
+          </div>
+        `;
+
+        // Add click event listeners for plus and minus buttons
+        const minusButton = pointsCell.querySelector('.minus');
+        const plusButton = pointsCell.querySelector('.plus');
+        const valueElement = pointsCell.querySelector('.value');
+        let points = 0;
+
+        minusButton.addEventListener('click', () => {
+          if (points > 0) {
+            points--;
+            valueElement.textContent = points;
+          }
+        });
+
+        plusButton.addEventListener('click', () => {
+          points++;
+          valueElement.textContent = points;
+        });
+      });
+    });
+  }
+
+  // Call the function to initially display user data
+  displayUserData();
+</script>
+</body>
+</html>

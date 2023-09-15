@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Box Popup</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            width: 300px;
+            margin: 20px auto;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-box {
+            overflow-y: scroll;
+            max-height: 300px;
+            padding: 10px;
+        }
+
+        .message {
+            margin: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        .message p {
+            margin: 0;
+        }
+
+        .timestamp {
+            font-size: 12px;
+            text-align: right;
+            color: #888;
+        }
+
+        #message-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        #send-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        #send-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style for the button that triggers the chat popup */
+        .open-chat-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .open-chat-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style for the chat popup */
+        #chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+        }
+
+        /* Style for the chat popup header */
+        .chat-popup-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        /* Style for the chat popup close button */
+        .chat-popup-close {
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Style for the chat popup content */
+        .chat-popup-content {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Button to open the chat popup -->
+    <button class="open-chat-button" id="open-chat-button">Open Chat</button>
+
+    <!-- Chat popup code -->
+    <div id="chat-popup">
+        <div class="chat-popup-header">
+            Chat
+            <span class="chat-popup-close" id="chat-popup-close">×</span>
+        </div>
+        <div class="chat-popup-content">
+            <div class="container">
+                <div class="chat-box" id="chat-box-popup">
+                    <!-- Messages will be displayed here -->
+                </div>
+                <input type="text" id="message-input-popup" placeholder="Type your message">
+                <button id="send-button-popup">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to toggle the chat popup
+        const chatPopup = document.getElementById('chat-popup');
+        const openChatButton = document.getElementById('open-chat-button');
+        const chatPopupClose = document.getElementById('chat-popup-close');
+
+        openChatButton.addEventListener('click', () => {
+            chatPopup.style.display = 'block';
+        });
+
+        chatPopupClose.addEventListener('click', () => {
+            chatPopup.style.display = 'none';
+        });
+
+        // Rest of your JavaScript code for the chat popup (including sending messages)
+        const chatBoxPopup = document.getElementById('chat-box-popup');
+        const messageInputPopup = document.getElementById('message-input-popup');
+        const sendButtonPopup = document.getElementById('send-button-popup');
+
+        sendButtonPopup.addEventListener('click', () => {
+            const message = messageInputPopup.value.trim();
+            if (message) {
+                const timestamp = new Date().toLocaleString();
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.innerHTML = `
+                    <p>${message}</p>
+                    <div class="timestamp">${timestamp}</div>
+                `;
+                chatBoxPopup.appendChild(messageDiv);
+                messageInputPopup.value = ''; // Clear the input field after sending
+            }
+        });
+    </script>
+</body>
+</html>

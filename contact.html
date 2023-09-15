@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>VAST ACADEMY</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<div id="myModal" class="modal">
+    <div class="modal-content" style="background-color: yellow;">
+      <span class="close">&times;</span><br>
+      <!-- <h2>Subscribe to our Newsletter</h2> -->
+      <div class="card-header bg-primary text-center p-4">
+        <H5 style="color: white;">Get Educational vouchers </H5>
+        <h3 class="text-white m-0">Upto 30% Off</h3>
+        <h5 style="color: white;"> Discount for only first 10 Courses for this month!</h5>
+    </div>
+    <div class="card-body rounded-bottom bg-white p-5">
+        <form action="https://formspree.io/f/xknlbdbv"
+        method="POST">
+            <div class="form-group" style="background-color: yellow;">
+                <input type="text" name="text" class="form-control p-4" placeholder="Your name" required="required" style="color: #000;" />
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" class="form-control p-4" placeholder="Your email" required="required" style="color: #000;"/>
+           </div>
+           <div class="form-group">
+            <input type="number" name="Number" class="form-control p-4" placeholder="Your mobile number" required="required" style="color: #000;"/>
+       </div><br>
+            <div class="form-group" >
+                <select name="subject" class="custom-select px-4" style="height: 47px;">
+                    <option selected>Choose your Course</option>
+                    <option value="1">COMPUTER COURCES</option>
+                    <option value="2">PERSONALITY DEVELOPMENT COURSE</option>
+                    <option value="3">SPOKEN ENGLISH</option>
+                 
+                </select>
+            </div>
+            <div><br>
+                <button class="btn btn-primary btn-block py-3" type="submit">Yes, get my voucher now!</button>
+            </div>
+        </form>
+    </div>
+    </div>
+  </div>
+  <style>
+  .modal {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+  
+  .modal-content {
+    background-color: #fefefe;
+    /* margin: 15% auto; */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* Add any additional styling as needed */
+</style>
+<script>
+    // Get the modal element
+var modal = document.getElementById("myModal");
+
+// Get the close button element
+var closeBtn = document.getElementsByClassName("close")[0];
+
+// Open the modal when the page loads
+window.onload = function() {
+  modal.style.display = "block";
+};
+
+// Close the modal when the close button is clicked
+closeBtn.onclick = function() {
+  modal.style.display = "none";
+};
+
+</script>
+<style>
+    * {box-sizing: border-box;}
+    body {font-family: Verdana, sans-serif;}
+    .mySlides {display: none;}
+    img {vertical-align: middle;}
+    
+    /* Slideshow container */
+    .slideshow-container {
+      max-width: 1000px;
+      position: relative;
+      margin: auto;
+      
+    }
+    
+    /* Caption text */
+    .text {
+      color: black;
+      font-size: 105px;
+      padding: 8px 12px;
+      position: absolute;
+      bottom: 8px;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 350px;  
+    }
+    
+    /* Number text (1/3 etc) */
+    .numbertext {
+      color: #f2f2f2;
+      font-size: 12px;
+      padding: 8px 12px;
+      position: absolute;
+      top: 0;
+    }
+    
+    /* The dots/bullets/indicators */
+    .dot {
+      height: 15px;
+      width: 15px;
+      margin: 0 2px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+    
+    .activee {
+      background-color: #717171;
+    }
+    
+    /* Fading animation */
+    .slide {
+        animation-name: slide;
+  animation-duration: 1s;
+  animation-fill-mode: forwards; /* Keeps the last keyframe style after animation ends */
+    }
+    
+    @keyframes slide {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+    
+    /* On smaller screens, decrease text size */
+    @media only screen and (max-width: 300px) {
+      .text {font-size: 11px}
+    }
+    </style>
+    <style>
+        * {box-sizing: border-box;}
+        body {font-family: Verdana, sans-serif;}
+        .mySlides {display: none;}
+        img {vertical-align: middle;}
+        
+        /* Slideshow container */
+        .slideshow-container {
+          max-width: 1000px;
+          position: relative;
+          margin: auto;
+          
+        }
+        
+        /* Caption text */
+        .text {
+          color: black;
+          font-size: 105px;
+          padding: 8px 12px;
+          position: absolute;
+          bottom: 8px;
+          width: 100%;
+          text-align: center;
+          margin-bottom: 350px;  
+        }
+        
+        /* Number text (1/3 etc) */
+        .numbertext {
+          color: #f2f2f2;
+          font-size: 12px;
+          padding: 8px 12px;
+          position: absolute;
+          top: 0;
+        }
+        
+        /* The dots/bullets/indicators */
+        .dot {
+          height: 15px;
+          width: 15px;
+          margin: 0 2px;
+          background-color: #bbb;
+          border-radius: 50%;
+          display: inline-block;
+          transition: background-color 0.6s ease;
+        }
+        
+        .activee {
+          background-color: #717171;
+        }
+        
+        /* Fading animation */
+        .slide {
+            animation-name: slide;
+      animation-duration: 1s;
+      animation-fill-mode: forwards; /* Keeps the last keyframe style after animation ends */
+        }
+        
+        @keyframes slide {
+      from {
+        transform: translateX(100%);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
+        
+        /* On smaller screens, decrease text size */
+        @media only screen and (max-width: 300px) {
+          .text {font-size: 11px}
+        }
+        </style>
+<body>
+    
+    <!-- Topbar Start -->
+    <div class="slideshow-container">
+    
+        <div class="mySlides slide">
+          <div class="numbertext">1 / 3</div>
+          <img src="img/OFFER1.png" style="width:150%;   margin-left: -220px;" >
+          
+        </div>
+        
+        <div class="mySlides slide">
+          <div class="numbertext">2 / 3</div>
+          <img src="img/OFFER2.png" style="width:150%;   margin-left: -220px;">
+          
+        </div>
+        
+        <div class="mySlides slide">
+          <div class="numbertext">3 /3</div>
+          <img src="img/offer3.png" style="width:150%;   margin-left: -220px;">
+          
+        </div>
+        <!-- <div class="mySlides slide">
+            <div class="numbertext">4 / 8</div>
+            <img src="img/jallianwalabagh.png" style="width:150%;   margin-left: -220px;">
+            <div class="text">jallian wala bagh</div>
+          </div>
+          <div class="mySlides slide">
+            <div class="numbertext">5 / 8</div>
+            <img src="img/goldntmpl.png" style="width:150%;   margin-left: -220px;">
+            <div class="text">Golden Temple</div>
+          </div>
+          <div class="mySlides slide">
+            <div class="numbertext">6 / 8</div>
+            <img src="img/seetlamandir.png" style="width:150%;   margin-left: -220px;">
+            <div class="text">Seetla Mandir</div>
+          </div>
+          <div class="mySlides slide">
+            <div class="numbertext">7 / 8</div>
+            <img src="img/musemcompnybgh.png" style="width:150%;   margin-left: -220px;">
+            <div class="text">Maharaja Ranjit Singh Musuem</div>
+          </div>
+          <div class="mySlides slide">
+            <div class="numbertext">7 / 8</div>
+            <img src="img/partitionmusm.png" style="width:150%;   margin-left: -220px">
+            <div class="text">Partition Musuem</div>
+          </div> -->
+         
+        
+        </div>
+        <br>
+        
+        <div style="text-align:center">
+          <span class="dot"></span> 
+          <span class="dot"></span> 
+          <span class="dot"></span> 
+          <span class="dot"></span> 
+          <span class="dot"></span> 
+          <span class="dot"></span> 
+          <span class="dot"></span> 
+          <span class="dot"></span> 
+          <span class="dot"></span> 
+        </div>
+        
+        <script>
+       let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {
+    slideIndex = 1;
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" activee", "");
+  }
+  slides[slideIndex - 1].style.display = "block";
+  dots[slideIndex - 1].className += " activee";
+  setTimeout(showSlides, 3000); // Pause for 3 seconds before changing to the next slide
+}
+
+        </script>
+    <!-- Topbar Start -->
+    <div class="container-fluid d-none d-lg-block">
+        <div class="row align-items-center py-4 px-xl-5">
+            <div class="col-lg-3">
+                <a href="" class="text-decoration-none">
+                    <h1 class="m-0" style=""><span class="text-primary">VAST</span>ACADEMY</h1>
+                </a>
+            </div>
+            <div class="col-lg-3 text-right">
+                <div class="d-inline-flex align-items-center">
+                    <i class="fa fa-2x fa-map-marker-alt text-primary mr-3"></i>
+                    <div class="text-left">
+                        <h6 class="font-weight-semi-bold mb-1">Our Office</h6>
+                        <li> <small>Before railway station, sohiyan road, majitha (143601) District Amritsar
+                            </li></small>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 text-right">
+                <div class="d-inline-flex align-items-center">
+                    <i class="fa fa-2x fa-envelope text-primary mr-3"></i>
+                    <div class="text-left">
+                        <h6 class="font-weight-semi-bold mb-1">Email Us</h6>
+                        <small>vastacademymajitha@gmail.com</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 text-right">
+                <div class="d-inline-flex align-items-center">
+                    <i class="fa fa-2x fa-phone text-primary mr-3"></i>
+                    <div class="text-left">
+                        <h6 class="font-weight-semi-bold mb-1">Call Us</h6>
+                        
+                       <li> <small>+91 93563-93094</small></li>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid">
+        <div class="row border-top px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a class="d-flex align-items-center justify-content-between bg-secondary w-100 text-decoration-none" data-toggle="collapse" href="#navbar-vertical" style="height: 67px; padding: 0 30px;">
+                    <h5 class="text-primary m-0"><i class="fa fa-book-open mr-2"></i>Subjects</h5>
+                    <i class="fa fa-angle-down text-primary"></i>
+                </a>
+                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 9;">
+                    <div class="navbar-nav w-100">
+                        <div class="nav-item dropdown">
+                            <!-- <a href="#" class="nav-link" data-toggle="dropdown">Web Design <i class="fa fa-angle-down float-right mt-1"></i></a>
+                            <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
+                                <a href="" class="dropdown-item">HTML</a>
+                                <a href="" class="dropdown-item">CSS</a>
+                                <a href="" class="dropdown-item">jQuery</a>
+                            </div> -->
+                        </div>
+                        <!-- <a href="ielts.html" class="nav-item nav-link">IELTS </a>
+                        <a href="grammar.html" class="nav-item nav-link">Grammer</a>
+                        <a href="pte.html" class="nav-item nav-link">PTE</a>
+                        <a href="celpip.html" class="nav-item nav-link">CELPIP</a>
+                        <a href="toefl.html" class="nav-item nav-link">TOEFL</a>
+                        <a href="duolingo.html" class="nav-item nav-link">DUOLINGO</a>
+                        <a href="french.html" class="nav-item nav-link">FRENCH CLASSES</a>
+                        <a href="compp.html" class="nav-item nav-link">COMPETITIVE EXAMS</a> -->
+                        <a href="index.html" class="nav-item nav-link">COMPUTER COURCES</a>
+                        <a href="index.html" class="nav-item nav-link">PERSONALITY DEVELOPMENT</a>
+                        <a href="index.html" class="nav-item nav-link">SPOKEN ENGLISH</a>
+                        <!-- <a href="personality.html" class="nav-item nav-link">GRAMMER</a> -->
+                
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                    <a href="" class="text-decoration-none d-block d-lg-none">
+                        <h1 class="m-0"><span class="text-primary">GLOBAL</span>COMPUTERS</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav py-0">
+                            <a href="index.html" class="nav-item nav-link ">Home</a>
+                            <!-- <a href="about.html" class="nav-item nav-link">About</a> -->
+                            <a href="course.html" class="nav-item nav-link">Courses</a>
+                            <!-- <a href="index.html" class="nav-item nav-link">Teachers</a> -->
+                            <!-- <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Blog</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a href="blog.html" class="dropdown-item">Blog List</a>
+                                    <a href="single.html" class="dropdown-item">Blog Detail</a>
+                                </div>
+                            </div> -->
+                            <a href="contact.html" class="nav-item nav-link active">Contact</a>
+                        </div>
+                        <a class="btn btn-primary py-2 px-4 ml-auto d-none d-lg-block" href="contact.html">Join Now</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Navbar End -->
+
+    <!-- Navbar End -->
+
+
+    <!-- Header Start -->
+    <div class="container-fluid page-header" style="margin-bottom: 90px;">
+        <div class="container">
+            <div class="d-flex flex-column justify-content-center" style="min-height: 300px">
+                <h3 class="display-4 text-white text-uppercase">Contact</h3>
+                <div class="d-inline-flex text-white">
+                    <p class="m-0 text-uppercase"><a class="text-white" href="">Home</a></p>
+                    <i class="fa fa-angle-double-right pt-1 px-3"></i>
+                    <p class="m-0 text-uppercase">Contact</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Contact Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Contact</h5>
+                <h1>Contact For Any Query</h1>
+            </div>
+            <div class="map">
+        <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m26!1m12!1m3!1d108625.47899487444!2d74.87234741764543!3d31.7009710585715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m11!3e6!4m3!3m2!1d31.6450897!2d74.90269599999999!4m5!1s0x391961c3c2c9062d%3A0xe7cc52c491ff3101!2svast%20academy%20majitha!3m2!1d31.757012399999997!2d74.9511867!5e0!3m2!1sen!2sin!4v1694270727601!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">OUR AMRITSAR OFFICE</iframe>
+      </div>
+      
+             <!-- <div class="map">
+        <iframe style="border:0; width: 100%; height: 350px;" src=https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13585.081367951558!2d74.87511373198981!3d31.65382275120881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39196367b0ebb567%3A0x5407c5e18412290d!2sMedical%20Enclave%2C%20Amritsar%2C%20Punjab!5e0!3m2!1sen!2sin!4v1657449785791!5m2!1sen!2sin" frameborder="0" allowfullscreen></iframe>
+      </div> -->
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form bg-secondary rounded p-5">
+                        <div id="success"></div>
+                        <form
+                        action="https://formspree.io/f/xvojrerw"
+                        method="POST"
+                      >
+                            <div class="control-group">
+                                <input type="name" name="name" class="form-control border-0 p-4" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="control-group">
+                                <input type="email" name="email" class="form-control border-0 p-4" id="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="control-group">
+                                <input type="subject" name="subject" class="form-control border-0 p-4" id="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="control-group">
+                                <textarea class="form-control border-0 py-3 px-4" name="message" rows="5" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-primary py-3 px-5" type="submit" id="sendMessageButton">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
+        <div class="row pt-5">
+            <div class="col-lg-7 col-md-12">
+                <div class="row">
+                    <div class="col-md-6 mb-5">
+                        <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Get In Touch</h5>
+                        <p><li><i class="fa fa-map-marker-alt mr-2"></i>Before railway station, sohiyan road, majitha (143601) District Amritsar</li>
+                        <!-- <li><i class="fa fa-map-marker-alt mr-2"></i>Sco.12-13, Twin Tower, Ranjit Avenue A- block, Amritsar.</li></p> -->
+
+                        <p><li><i class="fa fa-phone-alt mr-2"></i>+91 93563-93094</li>
+                        <!-- <li><i class="fa fa-phone-alt mr-2"></i>+91 9878222189</li></p> -->
+                        <p><i class="fa fa-envelope mr-2"></i>vastacademymajitha@gmail.com</p>
+                        <div class="d-flex justify-content-start mt-4">
+                           <!--  <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a> -->
+                            <!-- <a class="btn btn-outline-light btn-square mr-2" target="_blank" href="https://www.facebook.com/SG-group-of-IELTS-PTE-HUB-103358105606671/"><i class="fab fa-facebook-f"></i></a> -->
+                            <!-- <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a> -->
+                            <!-- <a class="btn btn-outline-light btn-square" target="_blank" href="https://www.Instagram.com/s.g_group_"><i class="fab fa-instagram"></i></a> -->
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-5">
+                        <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Our Courses</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <!-- <a class="text-white mb-2" href="ielts.html"><i class="fa fa-angle-right mr-2"></i> IELTS</a>
+                            <a class="text-white mb-2" href="pte.html"><i class="fa fa-angle-right mr-2"></i>PTE</a> -->
+                            <a class="text-white mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>SPOKEN ENGLISH</a>
+                            <!-- <a class="text-white mb-2" href="celpip.html"><i class="fa fa-angle-right mr-2"></i>CELPIP</a>
+                            
+                            <a class="text-white" href="duolingo.html"><i class="fa fa-angle-right mr-2"></i>DUOLINGO</a>
+                            <a class="text-white" href="french.html"><i class="fa fa-angle-right mr-2"></i>FRENCH CLASSES</a>
+                            <a class="text-white" href="compp.html"><i class="fa fa-angle-right mr-2"></i>COMPETITIVE PREPERATION</a> -->
+                            <a class="text-white" href="index.html"><i class="fa fa-angle-right mr-2"></i>COMPUTER COURSES</a>
+                            <a class="text-white" href="index.html"><i class="fa fa-angle-right mr-2"></i>PERSONALITY DEVELOPMENT</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-12 mb-5">
+                <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Newsletter</h5>
+                <p>Get regular news and updates related to Educational Industry from Global Movers</p>
+                <div class="w-100">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-light" style="padding: 30px;" placeholder="Your Email Address">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary px-4">Sign Up</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5" style="border-color: rgba(256, 256, 256, .1) !important;">
+        <div class="row">
+            <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
+                <p class="m-0 text-white">&copy; <a href="#">vastacademy.in</a>. All Rights Reserved. Designed by <a href="https://kkcoders.com">KK CODERS</a>
+                </p>
+            </div>
+            <!-- <div class="col-lg-6 text-center text-md-right">
+                <ul class="nav d-inline-flex">
+                    <li class="nav-item">
+                        <a class="nav-link text-white py-0" href="#">Privacy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white py-0" href="#">Terms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white py-0" href="#">FAQs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white py-0" href="#">Help</a>
+                    </li>
+                </ul>
+            </div> -->
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+<div style="    position: fixed;left: 4px;bottom: 20px;z-index: 100;">
+    <center><a href="https://api.whatsapp.com/send?phone=+919622260202" target="_blank">
+            <img src="img/whatsapp2.png" /></a></center>
+</div>
+<div style="    position: fixed;
+right: 4px;
+bottom: 20px;z-index: 100;">
+    <center><a href="tel:+919622260202" target="_blank"><img src="./img/phone.png" /></a></center>
+</div>
+</html>
