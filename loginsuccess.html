@@ -50,7 +50,7 @@
     }
 
     #myInput {
-      background-image: url('/css/searchicon.png');
+      /* background-image: url('/css/searchicon.png'); */
       background-position: 10px 10px;
       background-repeat: no-repeat;
       width: 100%;
@@ -101,6 +101,101 @@
       border: none;
       outline: none;
     }
+
+    .open-button {
+      background-color: #555;
+      color: white;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      opacity: 0.8;
+      position: fixed;
+      bottom: 23px;
+      right: 28px;
+      width: 280px;
+    }
+
+    /* The popup form - hidden by default */
+    .form-popup {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      right: 15px;
+      border: 3px solid #f1f1f1;
+      z-index: 9;
+    }
+
+    /* Add styles to the form container */
+    .form-container {
+      width: 400px;
+      padding: 10px;
+      background-color: white;
+    }
+
+    /* Full-width input fields */
+    .form-container input[type=text],
+    .form-container input[type=password] {
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      border: none;
+      background: #f1f1f1;
+    }
+
+    /* When the inputs get focus, do something */
+    .form-container input[type=text]:focus,
+    .form-container input[type=password]:focus {
+      background-color: #ddd;
+      outline: none;
+    }
+
+    /* Set a style for the submit/login button */
+    .form-container .btn {
+      background-color: #04AA6D;
+      color: white;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 10px;
+      opacity: 0.8;
+    }
+
+    /* Add a red background color to the cancel button */
+    .form-container .cancel {
+      background-color: red;
+    }
+
+    /* Add some hover effects to buttons */
+    .form-container .btn:hover,
+    .open-button:hover {
+      opacity: 1;
+    }
+
+    .chatBox * {
+      box-sizing: border-box;
+    }
+
+    .chatBox {
+      height: 300px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+
+    .chatBox h4 {
+      font-size: 19px;
+      background-color: #8fffd6;
+      padding: 10px;
+      margin-bottom: 2px;
+      margin-top: 8px;
+    }
+
+    .chatBox p {
+      text-align: right;
+      font-size: 15px;
+      margin-top: 2px;
+      margin-bottom: 0;
+    }
   </style>
 </head>
 
@@ -119,6 +214,17 @@
     </tr>
     <!-- Add table rows and data here -->
   </table>
+
+  <!-- The form -->
+  <div class="form-popup" id="myForm">
+    <form class="form-container">
+      <h1>Chat</h1>
+      <div class="chatBox" id="dataHere"></div>
+      <input type="text" id="chatMsg" placeholder="Add message here">
+      <button type="button" class="btn" onclick="sendMsg()">Send</button>
+      <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </form>
+  </div>
 
 
   <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
@@ -141,6 +247,28 @@
     const db = firebase.firestore();
     const chatsCollection = db.collection("chats");
 
+    function sendMsg(docId) {
+      let msg = document.getElementById("chatMsg").value;
+      if (!msg || msg == "" | msg == null) {
+        alert("Please enter a message");
+        return;
+      }
+      const dbRef = doc(db, "users", docId);
+      db.collection("users")
+    }
+
+    function compoChat(msg, time) {
+      let h4 = document.createElement('h4');
+      let p = document.createElement('p');
+      let br = document.createElement('br');
+      h4.innerHTML = msg;
+      p.innerHTML = time;
+      document.getElementById("dataHere").append(h4, p, br);
+    }
+
+    function closeForm() {
+      document.getElementById("myForm").style.display = "none";
+    }
 
     // Function to display user data in the table
     function displayUserData() {
@@ -150,7 +278,7 @@
       <tr class="header">
         <th style="width:30%;">Name</th>
         <th style="width:30%;">Course</th>
-        <th style="width:20%;">Button</th> <!-- Add the new button header -->
+        <th style="width:20%;">Button</th>
         <th style="width:20%;">Points</th>
       </tr>
     `;
@@ -171,9 +299,16 @@
           // Create a "Click Me" button
           const clickMeButton = document.createElement('button');
           clickMeButton.textContent = 'Click Me';
+
           clickMeButton.addEventListener('click', () => {
             // Handle the button click event here
-            alert(`Clicked "Click Me" for ${userData.name}`);
+            document.getElementById("myForm").style.display = "none";
+            document.getElementById("myForm").style.display = "block";
+            console.log(doc.id);
+            let msgs = userData.msgs;
+            Object.keys(msgs).forEach(function (key) {
+              compoChat(key, msgs[key]);
+            });
           });
 
           buttonCell.appendChild(clickMeButton);
