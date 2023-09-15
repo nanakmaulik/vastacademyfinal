@@ -1,149 +1,153 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<style>
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
 
-  .container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    width: 300px;
-    margin: 0 auto;
-  }
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      width: 300px;
+      margin: 0 auto;
+    }
 
-  h1 {
-    text-align: center;
-    color: #333;
-  }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
 
-  label {
-    font-weight: bold;
-  }
+    label {
+      font-weight: bold;
+    }
 
-  input[type="text"],
-  input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
-  hr {
-    border: none;
-    border-top: 1px solid #ccc;
-    margin: 20px 0;
-  }
+    hr {
+      border: none;
+      border-top: 1px solid #ccc;
+      margin: 20px 0;
+    }
 
-  button[type="submit"] {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    width: 100%;
-  }
+    button[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      width: 100%;
+    }
 
-  button[type="submit"]:hover {
-    background-color: #0056b3;
-  }
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
 
-  .container.signin {
-    text-align: center;
-    margin-top: 20px;
-  }
+    .container.signin {
+      text-align: center;
+      margin-top: 20px;
+    }
 
-  a {
-    text-decoration: none;
-    color: #007bff;
-  }
+    a {
+      text-decoration: none;
+      color: #007bff;
+    }
 
-  a:hover {
-    text-decoration: underline;
-  }
-</style>
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
+
 <body>
 
-<form action="" id="form1" class="container">
-  <h1>Login</h1>
-  <hr>
+  <form action="" id="form1" class="container">
+    <h1>Login</h1>
+    <hr>
 
-  <label for="email"><b>Email</b></label>
-  <input type="text" placeholder="Enter Email" id="email" name="email" required>
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" id="email" name="email" required>
 
-  <label for="psw"><b>Password</b></label>
-  <input type="password" placeholder="Enter Password" id="password" name="psw" required>
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" id="password" name="psw" required>
 
-  <hr>
+    <hr>
 
-  <button type="submit" id="submit" class="registerbtn">Login</button>
+    <button type="submit" id="submit" class="registerbtn">Login</button>
 
-  <div class="container signin">
-    <p>Don't have an account? <a href="studentregister.html">Register</a>.</p>
-  </div>
-</form>
+    <div class="container signin">
+      <p>Don't have an account? <a href="studentregister.html">Register</a>.</p>
+    </div>
+  </form>
 
-<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
 
-<script>
-  // Initialize Firebase (Replace with your Firebase configuration)
-  const firebaseConfig = {
-    apiKey: "AIzaSyAQFuwvC5Qb4eC7rLj0lkHwuPyb_ovId3A",
-  authDomain: "vastacademyfinal.firebaseapp.com",
-  projectId: "vastacademyfinal",
-  storageBucket: "vastacademyfinal.appspot.com",
-  messagingSenderId: "778284690574",
-  appId: "1:778284690574:web:11b082c4daf2202b4feddf",
-  measurementId: "G-F2HZKQDL51"
-  };
+  <script>
+    // Initialize Firebase (Replace with your Firebase configuration)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAQFuwvC5Qb4eC7rLj0lkHwuPyb_ovId3A",
+      authDomain: "vastacademyfinal.firebaseapp.com",
+      projectId: "vastacademyfinal",
+      storageBucket: "vastacademyfinal.appspot.com",
+      messagingSenderId: "778284690574",
+      appId: "1:778284690574:web:11b082c4daf2202b4feddf",
+      measurementId: "G-F2HZKQDL51"
+    };
 
-  firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
 
-  const db = firebase.firestore();
-  const form = document.getElementById('form1');
+    const db = firebase.firestore();
+    const form = document.getElementById('form1');
 
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
 
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
 
-    // Check if the entered email and password exist in the database
-    db.collection("users")
-      .where("email", "==", email)
-      .where("password", "==", password)
-      .get()
-      .then((querySnapshot) => {
-        if (querySnapshot.docs.length === 1) {
-          // Successful login, redirect to success page
-          alert('Login successful!');
-          window.location.href = 'loginsuccess.html'; // Redirect to success page
-        } else {
-          // Incorrect credentials, show error message
-          alert('Login failed. Please check your email and password.');
-        }
-      })
-      .catch((error) => {
-        // Handle any errors here
-        alert('An error occurred. Please try again.');
-      });
-  });
-</script>
+      // Check if the entered email and password exist in the database
+      db.collection("users")
+        .where("email", "==", email)
+        .where("password", "==", password)
+        .get()
+        .then((querySnapshot) => {
+          if (querySnapshot.docs.length === 1) {
+            // Successful login, redirect to success page
+            alert('Login successful!');
+            localStorage.setItem("loginStatus", "true");
+            window.location.href = 'loginsuccess.html'; // Redirect to success page
+          } else {
+            // Incorrect credentials, show error message
+            alert('Login failed. Please check your email and password.');
+          }
+        })
+        .catch((error) => {
+          // Handle any errors here
+          alert('An error occurred. Please try again.');
+        });
+    });
+  </script>
 </body>
+
 </html>
