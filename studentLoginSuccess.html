@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 15px;
+      overflow: hidden;
+      background-color: #FF6600;
+      border-radius: 5px;
+    }
+
+    li {
+      float: left;
+    }
+
+    li a {
+      display: block;
+      color: #44425A;
+      text-align: center;
+      padding: 16px 20px;
+      /* Increased padding for larger buttons */
+      text-decoration: none;
+      font-size: 18px;
+      /* Increased font size */
+      font-weight: bold;
+      /* Bold text */
+      transition: background-color 0.3s ease;
+      /* Smooth background color transition */
+    }
+
+    li a:hover:not(.active) {
+      background-color: #111;
+      color: #fff;
+      /* Text color on hover */
+      border-radius: 5px;
+    }
+
+    .active {
+      background-color: #04AA6D;
+      color: #fff;
+      /* Text color on the active button */
+      border-radius: 5px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    #myInput {
+      /* background-image: url('/css/searchicon.png'); */
+      background-position: 10px 10px;
+      background-repeat: no-repeat;
+      width: 100%;
+      font-size: 16px;
+      padding: 12px 20px 12px 40px;
+      border: 1px solid #ddd;
+      margin-bottom: 12px;
+      border-radius: 5px;
+    }
+
+    #myTable {
+      border-collapse: collapse;
+      width: 100%;
+      border: 1px solid #ddd;
+      font-size: 18px;
+    }
+
+    #myTable th,
+    #myTable td {
+      text-align: left;
+      padding: 12px;
+    }
+
+    #myTable tr {
+      border-bottom: 1px solid #ddd;
+    }
+
+    #myTable tr.header,
+    #myTable tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* Remove the plus-minus styles */
+
+    .value-input {
+      width: 80px;
+      height: 30px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .value-input input {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      outline: none;
+    }
+
+    .open-button {
+      background-color: #555;
+      color: white;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      opacity: 0.8;
+      position: fixed;
+      bottom: 23px;
+      right: 28px;
+      width: 280px;
+    }
+
+    /* The popup form - hidden by default */
+    .form-popup {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      right: 15px;
+      border: 3px solid #f1f1f1;
+      z-index: 9;
+    }
+
+    /* Add styles to the form container */
+    .form-container {
+      width: 400px;
+      padding: 10px;
+      background-color: white;
+    }
+
+    /* Full-width input fields */
+    .form-container input[type=text],
+    .form-container input[type=password] {
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      border: none;
+      background: #f1f1f1;
+    }
+
+    /* When the inputs get focus, do something */
+    .form-container input[type=text]:focus,
+    .form-container input[type=password]:focus {
+      background-color: #ddd;
+      outline: none;
+    }
+
+    /* Set a style for the submit/login button */
+    .form-container .btn {
+      background-color: #04AA6D;
+      color: white;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 10px;
+      opacity: 0.8;
+    }
+
+    /* Add a red background color to the cancel button */
+    .form-container .cancel {
+      background-color: red;
+    }
+
+    /* Add some hover effects to buttons */
+    .form-container .btn:hover,
+    .open-button:hover {
+      opacity: 1;
+    }
+
+    .chatBox * {
+      box-sizing: border-box;
+    }
+
+    .chatBox {
+      height: 300px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+
+    .chatBox h4 {
+      font-size: 19px;
+      background-color: #8fffd6;
+      padding: 10px;
+      margin-bottom: 2px;
+      margin-top: 8px;
+    }
+
+    .chatBox p {
+      text-align: right;
+      font-size: 15px;
+      margin-top: 2px;
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body id="body">
+
+  <h2 style="margin-left: 600px;">Student'S Points</h2>
+
+  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+  <table id="myTable">
+    <tr class="header">
+      <th style="width:30%;">Name</th>
+      <th style="width:30%;">Course</th>
+      <th style="width:20%;">Button</th> <!-- Add the new button header -->
+      <th style="width:20%;">Points</th>
+    </tr>
+    <!-- Add table rows and data here -->
+  </table>
+
+  <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+
+  <script>
+    // Initialize Firebase (Replace with your Firebase configuration)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAQFuwvC5Qb4eC7rLj0lkHwuPyb_ovId3A",
+      authDomain: "vastacademyfinal.firebaseapp.com",
+      projectId: "vastacademyfinal",
+      storageBucket: "vastacademyfinal.appspot.com",
+      messagingSenderId: "778284690574",
+      appId: "1:778284690574:web:11b082c4daf2202b4feddf",
+      measurementId: "G-F2HZKQDL51"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const chatsCollection = db.collection("chats");
+
+    function getDate() {
+      const currentDate = new Date();
+
+      const formattedMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+      const formattedDay = currentDate.getDate().toString().padStart(2, '0');
+      const formattedYear = currentDate.getFullYear().toString().slice(2); // Get the last two digits of the year
+      const formattedHours = currentDate.getHours().toString().padStart(2, '0');
+      const formattedMinutes = currentDate.getMinutes().toString().padStart(2, '0');
+
+      const formattedDateTime = `${formattedMonth}/${formattedDay}/${formattedYear} ${formattedHours}:${formattedMinutes}`;
+
+      return formattedDateTime;
+    }
+
+    async function sendMsg(docId) {
+      let msg = document.getElementById("chatMsg").value;
+      // if (!msg || msg == "" | msg == null) {
+      //   alert("Please enter a message");
+      //   return;
+      // }
+      const docRef = db.collection("users").doc(docId);
+      let snapshot = await docRef.get();
+      if (!snapshot) {
+        console.error("Couldn't find the document");
+        return;
+      }
+
+      let data = snapshot.data();
+      let messages = data.messages;
+      messages.push(JSON.stringify([msg, getDate()]));
+      await docRef.update({ messages });
+
+      location.reload();
+    }
+
+    function chatForm(docId) {
+      // Create the <div> element with class "form-popup"
+      const formPopup = document.createElement("div");
+      formPopup.className = "form-popup";
+      formPopup.id = "myForm";
+
+      // Create the <form> element with class "form-container"
+      const formContainer = document.createElement("form");
+      formContainer.className = "form-container";
+
+      // Create the <h1> element with the "Chat" text
+      const h1 = document.createElement("h1");
+      h1.textContent = "Chat";
+
+      // Create the <div> element with class "chatBox" and id "dataHere"
+      const chatBox = document.createElement("div");
+      chatBox.className = "chatBox";
+      chatBox.id = "dataHere";
+
+      // Create the "Close" button
+      const closeButton = document.createElement("button");
+      closeButton.type = "button";
+      closeButton.className = "btn cancel";
+      closeButton.textContent = "Close";
+      closeButton.onclick = closeForm; // Assuming you have a closeForm function defined elsewhere
+
+      // Append all the elements to their respective parent elements
+      formContainer.append(h1);
+      formContainer.append(chatBox);
+      formContainer.append(closeButton);
+
+      formPopup.append(formContainer);
+
+      // Append the entire form to the document's body or any other desired location
+      document.getElementById("body").append(formPopup);
+      document.getElementById("myForm").style.display = "block";
+    }
+
+    function compoChat(msg, time) {
+      let h4 = document.createElement('h4');
+      let p = document.createElement('p');
+      let br = document.createElement('br');
+      h4.innerHTML = msg;
+      p.innerHTML = time;
+      document.getElementById("dataHere").append(h4, p, br);
+    }
+
+    function closeForm() {
+      document.getElementById("myForm").style.display = "none";
+      document.getElementById("myForm").remove();
+    }
+
+    function displayUserData() {
+      const table = document.getElementById('myTable');
+
+      // Fetch user data from the 'users' collection in the database and populate the table
+      let clickFlag = 0;
+      db.collection("users").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const userData = doc.data();
+          const row = table.insertRow(-1);
+          const nameCell = row.insertCell(0);
+          const courseCell = row.insertCell(1);
+          const buttonCell = row.insertCell(2); // Add a new cell for the button
+          const pointsCell = row.insertCell(3);
+
+          nameCell.textContent = userData.name;
+          courseCell.textContent = userData.course;
+
+          // Create a "Click Me" button
+          const clickMeButton = document.createElement('button');
+          clickMeButton.textContent = 'Click Me';
+
+          clickMeButton.addEventListener('click', () => {
+            if (clickFlag == 0) {
+              // Handle the button click event here
+              chatForm(doc.id);
+              let msgs = userData.messages;
+
+              // Clear previous chat messages
+              document.getElementById("dataHere").innerHTML = '';
+
+              msgs.forEach(msg => {
+                compoChat(JSON.parse(msg)[0], JSON.parse(msg)[1]);
+              })
+              clickFlag = 1;
+            } else {
+              closeForm();
+              clickFlag = 0;
+            }
+          });
+
+          buttonCell.appendChild(clickMeButton);
+
+          // Create an input field for 'points'
+          const pointsInput = document.createElement('div');
+          pointsInput.classList.add('value-input');
+          pointsInput.innerHTML = `<input type="number" disabled value="${userData.points}" />`;
+
+          pointsInput.querySelector('input').addEventListener('change', (event) => {
+            // Handle the change in points here
+            const newPoints = parseInt(event.target.value);
+            // Update the 'points' field in Firestore for this user using doc.id
+            db.collection("users").doc(doc.id).update({
+              points: newPoints
+            });
+          });
+
+          pointsCell.appendChild(pointsInput);
+        });
+      });
+    }
+
+    let loginStatus = localStorage.getItem("loginStatus");
+    if (loginStatus == "false" || !loginStatus) location.href = "./index.html";
+
+    // Call the function to initially display user data
+    displayUserData();
+  </script>
+</body>
+
+</html>
