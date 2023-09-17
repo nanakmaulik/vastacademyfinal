@@ -86,20 +86,25 @@
     /* Remove the plus-minus styles */
 
     .value-input {
-      width: 80px;
-      height: 30px;
+      width: 400px;
       border: 1px solid #ccc;
+      padding: 10px;
       border-radius: 5px;
+      display: flex;
+      gap: 50px;
+      justify-content: center;
     }
 
     .value-input input {
       width: 100%;
       height: 100%;
-      text-align: center;
       font-size: 16px;
-      font-weight: bold;
-      border: none;
-      outline: none;
+    }
+
+    .value-input div:nth-child(2) {
+      width: 300px;
+      display: grid;
+      gap: 5px;
     }
 
     .open-button {
@@ -251,10 +256,10 @@
 
     async function sendMsg(docId) {
       let msg = document.getElementById("chatMsg").value;
-      // if (!msg || msg == "" | msg == null) {
-      //   alert("Please enter a message");
-      //   return;
-      // }
+      if (!msg || msg == "" | msg == null) {
+        alert("Please enter a message");
+        return;
+      }
       const docRef = db.collection("users").doc(docId);
       let snapshot = await docRef.get();
       if (!snapshot) {
@@ -265,6 +270,62 @@
       let data = snapshot.data();
       let messages = data.messages;
       messages.push(JSON.stringify([msg, getDate()]));
+      await docRef.update({ messages });
+
+      location.reload();
+    }
+
+    async function sendAddRemark(docId) {
+      let numb = document.getElementById("num-" + docId);
+      let remark = document.getElementById("re-" + docId);
+      if (numb.value == "" || remark.value == "") {
+        alert("Please enter some value");
+        return;
+      }
+
+      const docRef = db.collection("users").doc(docId);
+      let snapshot = await docRef.get();
+      if (!snapshot) {
+        console.error("Couldn't find the document");
+        return;
+      }
+      let data = snapshot.data();
+
+      newPoints = parseInt(data.points) + parseInt(numb.value);
+      await db.collection("users").doc(docId).update({
+        points: newPoints
+      });
+
+      let messages = data.messages;
+      messages.push(JSON.stringify([numb.value + " points added. <br /> " + remark.value, getDate()]));
+      await docRef.update({ messages });
+
+      location.reload();
+    }
+
+    async function sendSubRemark(docId) {
+      let numb = document.getElementById("num-" + docId);
+      let remark = document.getElementById("re-" + docId);
+      if (numb.value == "" || remark.value == "") {
+        alert("Please enter some value");
+        return;
+      }
+
+      const docRef = db.collection("users").doc(docId);
+      let snapshot = await docRef.get();
+      if (!snapshot) {
+        console.error("Couldn't find the document");
+        return;
+      }
+      let data = snapshot.data();
+
+      newPoints = parseInt(data.points) - parseInt(numb.value);
+      await db.collection("users").doc(docId).update({
+        points: newPoints
+      });
+
+      let messages = data.messages;
+      messages.push(JSON.stringify([numb.value + " points removed. <br /> " + remark.value, getDate()]));
       await docRef.update({ messages });
 
       location.reload();
@@ -334,16 +395,17 @@
       document.getElementById("dataHere").append(h4, p, br);
     }
 
+    let clickFlag = 0;
     function closeForm() {
       document.getElementById("myForm").style.display = "none";
       document.getElementById("myForm").remove();
+      clickFlag = 0;
     }
 
     function displayUserData() {
       const table = document.getElementById('myTable');
 
       // Fetch user data from the 'users' collection in the database and populate the table
-      let clickFlag = 0;
       db.collection("users").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           const userData = doc.data();
@@ -384,16 +446,7 @@
           // Create an input field for 'points'
           const pointsInput = document.createElement('div');
           pointsInput.classList.add('value-input');
-          pointsInput.innerHTML = `<input type="number" value="${userData.points}" />`;
-
-          pointsInput.querySelector('input').addEventListener('change', (event) => {
-            // Handle the change in points here
-            const newPoints = parseInt(event.target.value);
-            // Update the 'points' field in Firestore for this user using doc.id
-            db.collection("users").doc(doc.id).update({
-              points: newPoints
-            });
-          });
+          pointsInput.innerHTML = `<div>Current Points: <b>${userData.points}</b></div> <div><input type="number" id="${'num-' + doc.id}" placeholder="0" /> <input type="text" id="${'re-' + doc.id}" placeholder="Please add Remarks" /> <button onclick="sendAddRemark('${doc.id}')">Add</button><button  onclick="sendSubRemark('${doc.id}')">Subtract</button></div>`;
 
           pointsCell.appendChild(pointsInput);
         });
