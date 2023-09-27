@@ -136,6 +136,7 @@
             // Successful login, redirect to success page
             alert('Login successful!');
             localStorage.setItem("loginStatus", "true");
+            localStorage.setItem("loginUser", email);
             window.location.href = 'studentLoginSuccess.html'; // Redirect to success page
           } else {
             // Incorrect credentials, show error message

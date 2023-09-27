@@ -203,7 +203,7 @@
 
   <h2 style="margin-left: 600px;">Student'S Points</h2>
 
-  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+  <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"> -->
 
   <table id="myTable">
     <tr class="header">
@@ -330,55 +330,57 @@
       db.collection("users").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           const userData = doc.data();
-          const row = table.insertRow(-1);
-          const nameCell = row.insertCell(0);
-          const courseCell = row.insertCell(1);
-          const buttonCell = row.insertCell(2); // Add a new cell for the button
-          const pointsCell = row.insertCell(3);
+          if (userData.email == localStorage.getItem("loginUser")) {
+            const row = table.insertRow(-1);
+            const nameCell = row.insertCell(0);
+            const courseCell = row.insertCell(1);
+            const buttonCell = row.insertCell(2); // Add a new cell for the button
+            const pointsCell = row.insertCell(3);
 
-          nameCell.textContent = userData.name;
-          courseCell.textContent = userData.course;
+            nameCell.textContent = userData.name;
+            courseCell.textContent = userData.course;
 
-          // Create a "Click Me" button
-          const clickMeButton = document.createElement('button');
-          clickMeButton.textContent = 'Click Me';
+            // Create a "Click Me" button
+            const clickMeButton = document.createElement('button');
+            clickMeButton.textContent = 'Click Me';
 
-          clickMeButton.addEventListener('click', () => {
-            if (clickFlag == 0) {
-              // Handle the button click event here
-              chatForm(doc.id);
-              let msgs = userData.messages;
+            clickMeButton.addEventListener('click', () => {
+              if (clickFlag == 0) {
+                // Handle the button click event here
+                chatForm(doc.id);
+                let msgs = userData.messages;
 
-              // Clear previous chat messages
-              document.getElementById("dataHere").innerHTML = '';
+                // Clear previous chat messages
+                document.getElementById("dataHere").innerHTML = '';
 
-              msgs.forEach(msg => {
-                compoChat(JSON.parse(msg)[0], JSON.parse(msg)[1]);
-              })
-              clickFlag = 1;
-            } else {
-              closeForm();
-              clickFlag = 0;
-            }
-          });
-
-          buttonCell.appendChild(clickMeButton);
-
-          // Create an input field for 'points'
-          const pointsInput = document.createElement('div');
-          pointsInput.classList.add('value-input');
-          pointsInput.innerHTML = `<input type="number" disabled value="${userData.points}" />`;
-
-          pointsInput.querySelector('input').addEventListener('change', (event) => {
-            // Handle the change in points here
-            const newPoints = parseInt(event.target.value);
-            // Update the 'points' field in Firestore for this user using doc.id
-            db.collection("users").doc(doc.id).update({
-              points: newPoints
+                msgs.forEach(msg => {
+                  compoChat(JSON.parse(msg)[0], JSON.parse(msg)[1]);
+                })
+                clickFlag = 1;
+              } else {
+                closeForm();
+                clickFlag = 0;
+              }
             });
-          });
 
-          pointsCell.appendChild(pointsInput);
+            buttonCell.appendChild(clickMeButton);
+
+            // Create an input field for 'points'
+            const pointsInput = document.createElement('div');
+            pointsInput.classList.add('value-input');
+            pointsInput.innerHTML = `<input type="number" disabled value="${userData.points}" />`;
+
+            pointsInput.querySelector('input').addEventListener('change', (event) => {
+              // Handle the change in points here
+              const newPoints = parseInt(event.target.value);
+              // Update the 'points' field in Firestore for this user using doc.id
+              db.collection("users").doc(doc.id).update({
+                points: newPoints
+              });
+            });
+
+            pointsCell.appendChild(pointsInput);
+          }
         });
       });
     }
